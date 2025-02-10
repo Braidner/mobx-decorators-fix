@@ -1,1 +1,5 @@
-try to bump version
+---
+"mobx": patch
+---
+
+support modern decorators for toJS func, make accessors decorator enumerable
