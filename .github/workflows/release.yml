@@ -35,12 +35,17 @@ jobs:
         env:
           NPM_TOKEN: ${{ secrets.GIT_TOKEN }}
 
+      - name: rename prj
+        run: npm pkg set name="@braidner/mobx"
+        env:
+          NPM_TOKEN: ${{ secrets.GIT_TOKEN }}
+
       - name: Create Release Pull Request or Publish to npm
         id: changesets
         uses: changesets/action@master
         with:
           # This expects you to have a script called release which does a build for your packages and calls changeset publish
-          publish: yarn release
+          publish:  yarn release
           commit: Version release
           title: Next release
         env:
