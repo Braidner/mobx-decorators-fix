@@ -182,7 +182,16 @@ export function apiDefineProperty(obj: Object, key: PropertyKey, descriptor: Pro
 
 export function apiOwnKeys(obj: Object) {
     if (isObservableObject(obj)) {
-        return (obj as any as IIsObservableObject)[$mobx].ownKeys_()
+        const adm = (obj as any as IIsObservableObject)[$mobx]
+        return adm.ownKeys_()
     }
     die(38)
+}
+
+export function apiProto(obj: Object) {
+    if (isObservableObject(obj)) {
+        const adm = (obj as any as IIsObservableObject)[$mobx]
+        return adm.proto_()
+    }
+    die(40)
 }

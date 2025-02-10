@@ -631,7 +631,16 @@ export class ObservableObjectAdministration
 
     ownKeys_(): Array<string | symbol> {
         this.keysAtom_.reportObserved()
-        return ownKeys(this.target_)
+        const keys = ownKeys(this.target_)
+        if (keys.length === 1 && keys[0] === $mobx) {
+            const proto = Object.getPrototypeOf(this.target_)
+            return ownKeys(proto)
+        }
+        return keys
+    }
+
+    proto_(): any {
+        return Object.getPrototypeOf(this.target_)
     }
 
     keys_(): PropertyKey[] {

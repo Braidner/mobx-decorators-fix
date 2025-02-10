@@ -21,8 +21,10 @@ import {
     isAction,
     IAtom,
     createAtom,
+    toJS,
     runInAction,
-    makeObservable
+    makeObservable,
+    makeAutoObservable
 } from "../../src/mobx"
 import { type ObservableArrayAdministration } from "../../src/internal"
 import * as mobx from "../../src/mobx"
@@ -664,7 +666,7 @@ test("enumerability", () => {
 
     t.deepEqual(ownProps, [])
 
-    t.deepEqual(enumProps, [])
+    t.deepEqual(enumProps, ["a"])
 
     t.equal("a" in a, true)
     // eslint-disable-next-line
@@ -687,7 +689,7 @@ test("enumerability", () => {
 
     t.deepEqual(ownProps, [])
 
-    t.deepEqual(enumProps, [])
+    t.deepEqual(enumProps, ["a"])
 
     t.equal("a" in a, true)
     // eslint-disable-next-line
@@ -1114,4 +1116,62 @@ test(`decorated field can be inherited, but doesn't inherite the effect of decor
 
     const subStore = new SubStore()
     expect(isAction(subStore.action)).toBe(false)
+})
+
+test("toJS", () => {
+    const fn0 = () => 0
+    class Order {
+        @observable accessor price: number = 3
+        @observable accessor amount: number = 2
+        @observable accessor orders: string[] = []
+        @observable accessor aFunction = fn0
+
+        @computed
+        get total() {
+            return this.amount * this.price * (1 + this.orders.length)
+        }
+    }
+
+    class Foo {
+        test: number = 12
+        constructor() {
+            makeObservable(this, {
+                test: observable
+            })
+        }
+    }
+
+    const order1totals: number[] = []
+    const order1 = new Order()
+    const order2 = new Order()
+    const foo = new Foo()
+
+    const disposer = autorun(() => {
+        order1totals.push(order1.total)
+    })
+
+    order2.price = 4
+    order1.amount = 1
+
+    t.equal(order1.price, 3)
+    t.equal(order1.total, 3)
+    t.equal(order2.total, 8)
+    order2.orders.push("bla")
+    t.equal(order2.total, 16)
+
+    order1.orders.splice(0, 0, "boe", "hoi")
+    t.deepEqual(order1totals, [6, 3, 9])
+
+    disposer()
+    order1.orders.pop()
+    t.equal(order1.total, 6)
+    t.deepEqual(order1totals, [6, 3, 9])
+    expect(isAction(order1.aFunction)).toBe(true)
+    expect(order1.aFunction()).toBe(0)
+    order1.aFunction = () => 1
+    expect(isAction(order1.aFunction)).toBe(true)
+    expect(order1.aFunction()).toBe(1)
+
+    expect(JSON.stringify(toJS(order1))).toBe('{"price":3,"amount":1,"orders":["boe"]}')
+    expect(JSON.stringify(toJS(foo))).toBe('{"test":12}')
 })

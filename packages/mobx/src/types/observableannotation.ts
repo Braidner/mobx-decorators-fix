@@ -73,8 +73,32 @@ function decorate_20223_(
     // See TODO: link
     const initializedObjects = new WeakSet()
 
+    function getDescriptor(target, name) {
+        const descriptor = Object.getOwnPropertyDescriptor(target, name)
+        if (descriptor === undefined) {
+            const proto = Object.getPrototypeOf(target)
+            if (!proto) {
+                return {}
+            }
+            return getDescriptor(proto, name)
+        }
+
+        return descriptor
+    }
+
     function initializeObservable(target, value) {
         const adm: ObservableObjectAdministration = asObservableObject(target)[$mobx]
+        const proto = adm.proto_()
+        const descriptor = getDescriptor(proto, name)
+        const setEnum = {}
+        setEnum[name.toString()] = {
+            ...descriptor,
+            // configurable: true,
+            enumerable: true
+        }
+
+        Object.defineProperties(proto, setEnum)
+
         const observable = new ObservableValue(
             value,
             ann.options_?.enhancer ?? deepEnhancer,

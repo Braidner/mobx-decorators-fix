@@ -7,7 +7,8 @@ import {
     isComputedValue,
     die,
     apiOwnKeys,
-    objectPrototype
+    objectPrototype,
+    apiProto
 } from "../internal"
 
 function cache<K, V>(map: Map<any, any>, key: K, value: V): V {
@@ -55,7 +56,10 @@ function toJSHelper(source, __alreadySeen: Map<any, any>) {
         // must be observable object
         const res = cache(__alreadySeen, source, {})
         apiOwnKeys(source).forEach((key: any) => {
-            if (objectPrototype.propertyIsEnumerable.call(source, key)) {
+            if (
+                objectPrototype.propertyIsEnumerable.call(source, key) ||
+                objectPrototype.propertyIsEnumerable.call(apiProto(source), key)
+            ) {
                 res[key] = toJSHelper(source[key], __alreadySeen)
             }
         })
