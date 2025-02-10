@@ -36,7 +36,7 @@ jobs:
           NPM_TOKEN: ${{ secrets.GIT_TOKEN }}
 
       - name: rename prj
-        run: npm pkg set name="@braidner/mobx"
+        run: cd ./packages/mobx && npm pkg set name="@braidner/mobx"
         env:
           NPM_TOKEN: ${{ secrets.GIT_TOKEN }}
 
