@@ -1,5 +1,5 @@
 {
-    "name": "mobx-decorators-fix",
+    "name": "@braidner/mobx",
     "version": "6.13.6",
     "description": "Simple, scalable state management.",
     "source": "src/mobx.ts",
@@ -22,7 +22,7 @@
     "sideEffects": false,
     "repository": {
         "type": "git",
-        "url": "https://github.com/Braidner/mobx-decorators-fix.git"
+        "url": "git+https://github.com/Braidner/mobx-decorators-fix.git"
     },
     "author": "Michel Weststrate",
     "license": "MIT",
