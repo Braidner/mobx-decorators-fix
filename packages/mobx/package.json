@@ -34,7 +34,7 @@
         "url": "https://github.com/mobxjs/mobx/issues"
     },
     "publishConfig": {
-        "registry": "https://npm.pkg.github.com"
+        "registry": "https://npm.pkg.github.com/braidner"
     },
     "homepage": "https://github.com/Braidner/mobx-decorators-fix",
     "dependencies": {},
