@@ -1,6 +1,6 @@
 {
     "name": "mobx",
-    "version": "6.13.7",
+    "version": "6.13.8",
     "description": "Simple, scalable state management.",
     "source": "src/mobx.ts",
     "main": "dist/index.js",
@@ -34,7 +34,7 @@
         "url": "https://github.com/mobxjs/mobx/issues"
     },
     "publishConfig": {
-      "registry": "https://npm.pkg.github.com"
+        "registry": "https://npm.pkg.github.com"
     },
     "homepage": "https://github.com/Braidner/mobx-decorators-fix",
     "dependencies": {},

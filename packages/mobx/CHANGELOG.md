@@ -1,5 +1,11 @@
 # mobx
 
+## 6.13.8
+
+### Patch Changes
+
+-   [`a4db85bc8b52f21b7eecea1d6bf99a78e396d651`](https://github.com/Braidner/mobx-decorators-fix/commit/a4db85bc8b52f21b7eecea1d6bf99a78e396d651) Thanks [@Braidner](https://github.com/Braidner)! - support modern decorators for toJS func, make accessors decorator enumerable
+
 ## 6.13.6
 
 ### Patch Changes
