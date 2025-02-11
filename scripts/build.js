@@ -19,7 +19,7 @@ const isTest = target === "test"
 
 const run = async () => {
     // TSDX converts passed name argument to lowercase for file name
-    const pkgPrefix = `${packageName.toLowerCase()}.`
+    const pkgPrefix = `${packageName.toLowerCase().replaceAll(/^@[^\/]+\//g, "")}.`
 
     const tempMove = name => fs.move(`dist/${pkgPrefix}${name}`, `temp/${pkgPrefix}${name}`)
     const moveTemp = name => fs.move(`temp/${pkgPrefix}${name}`, `dist/${pkgPrefix}${name}`)
