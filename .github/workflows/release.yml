@@ -35,11 +35,6 @@ jobs:
         env:
           NPM_TOKEN: ${{ secrets.GIT_TOKEN }}
 
-      - name: rename prj
-        run: cd ./packages/mobx && npm pkg set name="@braidner/mobx"
-        env:
-          NPM_TOKEN: ${{ secrets.GIT_TOKEN }}
-
       - name: Create Release Pull Request or Publish to npm
         id: changesets
         uses: changesets/action@master
