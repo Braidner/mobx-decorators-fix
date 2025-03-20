@@ -631,12 +631,11 @@ export class ObservableObjectAdministration
 
     ownKeys_(): Array<string | symbol> {
         this.keysAtom_.reportObserved()
-        const keys = ownKeys(this.target_)
-        if (keys.length === 1 && keys[0] === $mobx) {
-            const proto = Object.getPrototypeOf(this.target_)
-            return ownKeys(proto)
-        }
-        return keys
+        return ownKeys(this.target_)
+        // const proto = this.proto_()
+        // const protoKeys = ownKeys(proto)
+        //     .filter(key => Object.prototype.propertyIsEnumerable.call(proto, key))
+        // return [...keys, ...protoKeys]
     }
 
     proto_(): any {

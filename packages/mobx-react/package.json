@@ -1,5 +1,5 @@
 {
-    "name": "mobx-react",
+    "name": "@braidner/mobx-react",
     "version": "9.2.0",
     "description": "React bindings for MobX. Create fully reactive components.",
     "source": "src/index.ts",
@@ -22,8 +22,11 @@
     ],
     "sideEffects": false,
     "repository": {
-        "type": "git",
-        "url": "https://github.com/mobxjs/mobx.git"
+      "type": "git",
+      "url": "git+https://github.com/Braidner/mobx-decorators-fix.git"
+    },
+    "publishConfig": {
+      "access": "public"
     },
     "author": "Michel Weststrate",
     "license": "MIT",
@@ -34,7 +37,7 @@
     "bugs": {
         "url": "https://github.com/mobxjs/mobx/issues"
     },
-    "homepage": "https://mobx.js.org",
+    "homepage": "https://github.com/Braidner/mobx-decorators-fix",
     "dependencies": {
         "mobx-react-lite": "^4.1.0"
     },

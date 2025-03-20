@@ -88,16 +88,16 @@ function decorate_20223_(
 
     function initializeObservable(target, value) {
         const adm: ObservableObjectAdministration = asObservableObject(target)[$mobx]
-        const proto = adm.proto_()
-        const descriptor = getDescriptor(proto, name)
-        const setEnum = {}
+        // const proto = adm.proto_()
+        const descriptor = getDescriptor(adm.target_, name)
+        const setEnum: PropertyDescriptorMap = {}
         setEnum[name.toString()] = {
             ...descriptor,
-            // configurable: true,
+            configurable: true,
             enumerable: true
         }
 
-        Object.defineProperties(proto, setEnum)
+        Object.defineProperties(adm.target_, setEnum)
 
         const observable = new ObservableValue(
             value,

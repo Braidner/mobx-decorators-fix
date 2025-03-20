@@ -1,33 +1,25 @@
 "use strict"
 
+import * as mobx from "../../src/mobx"
 import {
-    observe,
-    computed,
-    observable,
-    autorun,
-    extendObservable,
     action,
-    IObservableArray,
-    IArrayWillChange,
-    IArrayWillSplice,
-    IObservableValue,
-    isObservable,
-    isObservableProp,
-    isObservableObject,
-    transaction,
-    IObjectDidChange,
-    spy,
+    autorun,
+    computed,
     configure,
+    IObjectDidChange,
     isAction,
-    IAtom,
-    createAtom,
-    toJS,
-    runInAction,
+    isObservable,
+    isObservableObject,
+    isObservableProp,
     makeObservable,
-    makeAutoObservable
+    observable,
+    observe,
+    runInAction,
+    spy,
+    toJS,
+    transaction
 } from "../../src/mobx"
 import { type ObservableArrayAdministration } from "../../src/internal"
-import * as mobx from "../../src/mobx"
 
 const testFunction = function (a: any) {}
 

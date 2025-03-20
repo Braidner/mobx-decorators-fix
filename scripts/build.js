@@ -21,10 +21,18 @@ const run = async () => {
     // TSDX converts passed name argument to lowercase for file name
     const pkgPrefix = `${packageName.toLowerCase().replaceAll(/^@[^\/]+\//g, "")}.`
 
-    const tempMove = name => fs.move(`dist/${pkgPrefix}${name}`, `temp/${pkgPrefix}${name}`)
-    const moveTemp = name => fs.move(`temp/${pkgPrefix}${name}`, `dist/${pkgPrefix}${name}`)
+    const tempMove = name => {
+        console.log("tempMove", `temp/${pkgPrefix}${name}`)
+        return fs.move(`dist/${pkgPrefix}${name}`, `temp/${pkgPrefix}${name}`)
+    }
+    const moveTemp = name => {
+        console.log("moveTemp", `dist/${pkgPrefix}${name}`)
+        return fs.move(`temp/${pkgPrefix}${name}`, `dist/${pkgPrefix}${name}`)
+    }
 
     const build = (format, env) => {
+        const name = packageName.replaceAll(/^@[^\/]+\//g, "")
+        console.log("building...", name, format, env)
         const args = ["build", "--name", packageName, "--format", format]
         if (env) {
             args.push("--env", env)
@@ -38,8 +46,10 @@ const run = async () => {
         // and these builds cannot be run in parallel because tsdx doesn't allow to change target dir
         await build("esm", "development")
         // tsdx will purge dist folder, so it's necessary to move these
-        await tempMove(`esm.development.js`)
-        await tempMove(`esm.development.js.map`)
+        await tempMove(`esm.development.js`).then(value => console.log("Moved esm.development.js"))
+        await tempMove(`esm.development.js.map`).then(value =>
+            console.log("Moved esm.development.js.map")
+        )
 
         // cannot build these concurrently
         await build("esm", "production")

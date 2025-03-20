@@ -1,6 +1,6 @@
 {
     "name": "@braidner/mobx",
-    "version": "6.13.9",
+    "version": "6.13.12",
     "description": "Simple, scalable state management.",
     "source": "src/mobx.ts",
     "main": "dist/index.js",
@@ -12,6 +12,7 @@
     "react-native": "dist/mobx.esm.js",
     "types": "dist/mobx.d.ts",
     "typings": "dist/mobx.d.ts",
+    "private": false,
     "files": [
         "src",
         "dist",
@@ -24,7 +25,10 @@
         "type": "git",
         "url": "git+https://github.com/Braidner/mobx-decorators-fix.git"
     },
-    "author": "Michel Weststrate",
+    "publishConfig": {
+      "access": "public"
+    },
+  "author": "Michel Weststrate",
     "license": "MIT",
     "funding": {
         "type": "opencollective",
@@ -32,9 +36,6 @@
     },
     "bugs": {
         "url": "https://github.com/mobxjs/mobx/issues"
-    },
-    "publishConfig": {
-        "registry": "https://npm.pkg.github.com/"
     },
     "homepage": "https://github.com/Braidner/mobx-decorators-fix",
     "dependencies": {},
@@ -66,7 +67,7 @@
     "scripts": {
         "test": "jest",
         "lint": "eslint src/**/*",
-        "build": "node ../../scripts/build.js @braidner/mobx",
+        "build": "node ../../scripts/build.js mobx",
         "build:test": "yarn build --target test",
         "perf": "scripts/perf.sh",
         "perf-legacy": "node --expose-gc ./__tests__/perf/index.js legacy",
